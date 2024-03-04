@@ -31,51 +31,55 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getUniqueRandomInteger = (min, max) => {
+const createRandomNumberFromRangeGenerator = (min, max) => {
   const previousValue = [];
 
   return function() {
     let currentValue = getRandomInteger(min, max);
+
     if (previousValue.length >= (max - min + 1)) {
       return null;
     }
+
     while (previousValue.includes(currentValue)) {
       currentValue = getRandomInteger(min, max);
     }
+
     previousValue.push(currentValue);
     return currentValue;
   };
 };
 
 const createObjectComment = () => {
-  const randomIdIndexForComment = getUniqueRandomInteger(0, 999);
-  const randomAvatarIndex = getUniqueRandomInteger(1, 6);
-  const randomMessage = getRandomInteger(0, MESSAGE_LIST.length - 1);
-  const randomName = getRandomInteger(0, NAMES.length - 1);
+  const getRandomIdIndexForComment = createRandomNumberFromRangeGenerator(0, 999);
+  const getRandomAvatarIndex = createRandomNumberFromRangeGenerator(1, 6);
+  const getRandomMessage = getRandomInteger(0, MESSAGE_LIST.length - 1);
+  const getRandomName = getRandomInteger(0, NAMES.length - 1);
 
   return {
-    id: randomIdIndexForComment(),
-    avatar: `img/avatar-${randomAvatarIndex()}.svg`,
-    message: MESSAGE_LIST[randomMessage],
-    name: NAMES[randomName]
+    id: getRandomIdIndexForComment(),
+    avatar: `img/avatar-${getRandomAvatarIndex()}.svg`,
+    message: MESSAGE_LIST[getRandomMessage],
+    name: NAMES[getRandomName]
   };
 };
 
 const createPhotoDescription = () => {
-  const randomIdIndex = getUniqueRandomInteger(1, 25);
-  const randomUrlIndex = getUniqueRandomInteger(1, 25);
-  const randomDescription = getRandomInteger(0, DESCRIPTION_LIST.length - 1);
-  const randomLikes = getRandomInteger(15, 200);
+  const getRandomIdIndex = createRandomNumberFromRangeGenerator(1, 25);
+  const getRandomUrlIndex = createRandomNumberFromRangeGenerator(1, 25);
+  const getRandomDescription = getRandomInteger(0, DESCRIPTION_LIST.length - 1);
+  const getRandomLikes = getRandomInteger(15, 200);
 
   return {
-    id: randomIdIndex(),
-    url: `photos/${randomUrlIndex()}.jpg`,
-    description: DESCRIPTION_LIST[randomDescription],
-    likes: [randomLikes],
+    id: getRandomIdIndex(),
+    url: `photos/${getRandomUrlIndex()}.jpg`,
+    description: DESCRIPTION_LIST[getRandomDescription],
+    likes: [getRandomLikes],
     comments: Array.from({length: getRandomInteger(0, 30)}, createObjectComment)
   };
 };
 
 const similarPhotoDescription = Array.from({length: 25}, createPhotoDescription);
 
-similarPhotoDescription();
+// similarPhotoDescription();
+console.log(similarPhotoDescription);
