@@ -27,36 +27,28 @@ const MESSAGE_LIST = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const createObjectComment = () => {
-  const getRandomIdIndexForComment = createRandomNumberFromRangeGenerator(0, 999);
-  const getRandomAvatarIndex = createRandomNumberFromRangeGenerator(1, 6);
-  const getRandomMessage = getRandomInteger(0, MESSAGE_LIST.length - 1);
-  const getRandomName = getRandomInteger(0, NAMES.length - 1);
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const getRandomCommentId = createRandomNumberFromRangeGenerator(0, 999);
+const getRandomAvatarIndex = createRandomNumberFromRangeGenerator(1, 6);
+const getRandomPhotoId = createRandomNumberFromRangeGenerator(1, 25);
+const getRandomUrlIndex = createRandomNumberFromRangeGenerator(1, 25);
+const getRandomLikes = getRandomInteger(15, 200);
 
-  return {
-    id: getRandomIdIndexForComment(),
-    avatar: `img/avatar-${getRandomAvatarIndex()}.svg`,
-    message: MESSAGE_LIST[getRandomMessage],
-    name: NAMES[getRandomName]
-  };
-};
+const createObjectComment = () => ({
+  id: getRandomCommentId(),
+  avatar: `img/avatar-${getRandomAvatarIndex()}.svg`,
+  message: getRandomArrayElement(MESSAGE_LIST),
+  name: getRandomArrayElement(NAMES)
+});
 
-const createPhotoDescription = () => {
-  const getRandomIdIndex = createRandomNumberFromRangeGenerator(1, 25);
-  const getRandomUrlIndex = createRandomNumberFromRangeGenerator(1, 25);
-  const getRandomDescription = getRandomInteger(0, DESCRIPTION_LIST.length - 1);
-  const getRandomLikes = getRandomInteger(15, 200);
-
-  return {
-    id: getRandomIdIndex(),
-    url: `photos/${getRandomUrlIndex()}.jpg`,
-    description: DESCRIPTION_LIST[getRandomDescription],
-    likes: [getRandomLikes],
-    comments: Array.from({length: getRandomInteger(0, 30)}, createObjectComment)
-  };
-};
+const createPhotoDescription = () => ({
+  id: getRandomPhotoId(),
+  url: `photos/${getRandomUrlIndex()}.jpg`,
+  description: getRandomArrayElement(DESCRIPTION_LIST),
+  likes: [getRandomLikes],
+  comments: Array.from({length: getRandomInteger(0, 30)}, createObjectComment)
+});
 
 const similarPhotoDescription = () => Array.from({length: 25}, createPhotoDescription);
 
 export {similarPhotoDescription};
-console.log(similarPhotoDescription());
