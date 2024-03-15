@@ -1,4 +1,6 @@
 import './functions.js';
-import {similarPhotoDescription} from './create-gallery-of-mock-data.js';
+import {similarPhotoDescription} from './mock-data.js';
+import {usersPhotos} from './users-photos.js';
 
 similarPhotoDescription();
+usersPhotos();
