@@ -21,11 +21,13 @@ const createThumbnail = (photo) => {
 
 const picturesListFragment = document.createDocumentFragment();
 
-usersPhotos.forEach((photo) => {
-  const thumbnailElement = createThumbnail(photo);
-  picturesListFragment.appendChild(thumbnailElement);
-});
+const createUsersPhotosThumbnails = () => {
+  usersPhotos.forEach((photo) => {
+    const thumbnailElement = createThumbnail(photo);
+    picturesListFragment.appendChild(thumbnailElement);
+  });
 
-picturesContainer.appendChild(picturesListFragment);
+  picturesContainer.appendChild(picturesListFragment);
+};
 
-export {usersPhotos};
+export {createUsersPhotosThumbnails};
