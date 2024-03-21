@@ -1,20 +1,22 @@
 import {similarPhotoDescription} from './mock-data.js';
+import {f} from './create-full-photo.js';
 
 const usersPhotosTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
 
 const usersPhotos = similarPhotoDescription();
 
-const createThumbnail = (photo) => {
+const createThumbnail = ({id, url, description, likes, comments}) => {
   const thumbnail = usersPhotosTemplate.cloneNode(true);
 
   const image = thumbnail.querySelector('.picture__img');
+  thumbnail.dataset.pictureId = id;
 
-  image.src = photo.url;
-  image.alt = photo.description;
+  image.src = url;
+  image.alt = description;
 
-  thumbnail.querySelector('.picture__likes').textContent = photo.likes;
-  thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
 
   return thumbnail;
 };
@@ -28,6 +30,8 @@ const createUsersPhotosThumbnails = () => {
   });
 
   picturesContainer.appendChild(picturesListFragment);
+
+  f();
 };
 
 export {createUsersPhotosThumbnails};
