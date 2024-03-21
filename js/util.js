@@ -5,7 +5,7 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const createRandomNumberFromRangeGenerator = (min, max) => {
+const getRandomNumberFromRange = (min, max) => {
   const previousValues = [];
 
   return function() {
@@ -27,5 +27,5 @@ const createRandomNumberFromRangeGenerator = (min, max) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 export {getRandomInteger};
-export {createRandomNumberFromRangeGenerator};
+export {getRandomNumberFromRange};
 export {getRandomArrayElement};

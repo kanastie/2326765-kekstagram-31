@@ -1,13 +1,13 @@
 import {getRandomInteger} from './util.js';
-import {createRandomNumberFromRangeGenerator} from './util.js';
+import {getRandomNumberFromRange} from './util.js';
 import {getRandomArrayElement} from './util.js';
 import {NAMES, DESCRIPTION_LIST, MESSAGE_LIST} from './data.js';
 
-const getRandomCommentId = createRandomNumberFromRangeGenerator(0, 999);
-const getRandomAvatarIndex = createRandomNumberFromRangeGenerator(1, 6);
-const getRandomPhotoId = createRandomNumberFromRangeGenerator(1, 25);
-const getRandomUrlIndex = createRandomNumberFromRangeGenerator(1, 25);
-const getRandomLikes = createRandomNumberFromRangeGenerator(15, 200);
+const getRandomCommentId = getRandomNumberFromRange(0, 999);
+const getRandomAvatarIndex = getRandomNumberFromRange(1, 6);
+const getRandomPhotoId = getRandomNumberFromRange(1, 25);
+const getRandomUrlIndex = getRandomNumberFromRange(1, 25);
+const getRandomLikes = getRandomNumberFromRange(15, 200);
 
 const createObjectComment = () => ({
   id: getRandomCommentId(),
