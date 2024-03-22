@@ -37,7 +37,7 @@ function closeModal () {
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
-};
+}
 
 modalCloseButton.addEventListener('click', () => {
   closeModal();
