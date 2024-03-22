@@ -5,16 +5,17 @@ const picturesContainer = document.querySelector('.pictures');
 
 const usersPhotos = similarPhotoDescription();
 
-const createThumbnail = (photo) => {
+const createThumbnail = ({id, url, description, likes, comments}) => {
   const thumbnail = usersPhotosTemplate.cloneNode(true);
 
   const image = thumbnail.querySelector('.picture__img');
+  thumbnail.dataset.pictureId = id;
 
-  image.src = photo.url;
-  image.alt = photo.description;
+  image.src = url;
+  image.alt = description;
 
-  thumbnail.querySelector('.picture__likes').textContent = photo.likes;
-  thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
 
   return thumbnail;
 };
