@@ -3,8 +3,6 @@ import {isEscapeKey} from './util.js';
 const body = document.querySelector('body');
 const modalBigPicture = body.querySelector('.big-picture');
 
-const socialCommentsCount = modalBigPicture.querySelector('.social__comment-count');
-const commentsLoader = modalBigPicture.querySelector('.comments-loader');
 const modalCloseButton = modalBigPicture.querySelector('.big-picture__cancel');
 
 const onDocumentKeydown = (evt) => {
@@ -19,10 +17,6 @@ function openModal () {
   // 2. Добавить обработчики для закрытия
 
   modalBigPicture.classList.remove('hidden');
-
-  // это скрыто до след задания:
-  socialCommentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
 
   body.classList.add('modal-open');
 
