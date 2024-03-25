@@ -1,28 +1,26 @@
-import {similarPhotoDescription} from './mock-data.js';
-
 const usersPhotosTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
 
-const usersPhotos = similarPhotoDescription();
-
-const createThumbnail = (photo) => {
+const createThumbnail = ({id, url, description, likes, comments}) => {
   const thumbnail = usersPhotosTemplate.cloneNode(true);
+
+  thumbnail.dataset.pictureId = id;
 
   const image = thumbnail.querySelector('.picture__img');
 
-  image.src = photo.url;
-  image.alt = photo.description;
+  image.src = url;
+  image.alt = description;
 
-  thumbnail.querySelector('.picture__likes').textContent = photo.likes;
-  thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
 
   return thumbnail;
 };
 
 const picturesListFragment = document.createDocumentFragment();
 
-const createUsersPhotosThumbnails = () => {
-  usersPhotos.forEach((photo) => {
+const createUsersPhotosThumbnails = (photos) => {
+  photos.forEach((photo) => {
     const thumbnailElement = createThumbnail(photo);
     picturesListFragment.appendChild(thumbnailElement);
   });
