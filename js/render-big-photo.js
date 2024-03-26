@@ -5,7 +5,6 @@ const usersPhotosContainer = document.querySelector('.pictures');
 const modalBigPicture = document.querySelector('.big-picture');
 const totalComments = modalBigPicture.querySelector('.social__comment-total-count');
 
-// создаёт большие модальные картинки
 const renderBigPhoto = (array) => {
 
   usersPhotosContainer.addEventListener('click', (evt) => {
@@ -19,14 +18,8 @@ const renderBigPhoto = (array) => {
     modalBigPicture.querySelector('.likes-count').textContent = currentPhoto.likes;
     modalBigPicture.querySelector('.social__caption').textContent = currentPhoto.description;
 
-    // удаляет все комменты, в т.ч. предыдущих фото:
     removeComments();
-    // комментарии:
-    // shownComments.textContent = currentPhoto.comments.length;
-    // с этим здесь проблема:
     totalComments.textContent = currentPhoto.comments.length;
-
-    // addCommentsList(array, pictureId);
     renderComments(currentPhoto.comments);
 
     openModal();

@@ -13,28 +13,23 @@ const commentsLoaderButton = modalBigPicture.querySelector('.comments-loader');
 commentsContainer.innerHTML = '';
 
 const addCommentsList = () => {
-  // const currentComment = array.find((el) => el.id === Number(id));
-  // это удаляются комменты, которые были до:
-  // commentsContainer.innerHTML = '';
 
-  const renderedComments = comments.slice(currentCount, currentCount + COMMENTS_COUNT);
-  const renderedCommentsLength = renderedComments.length + currentCount;
+  const commentsToRender = comments.slice(currentCount, currentCount + COMMENTS_COUNT);
+  const renderedCommentsLength = commentsToRender.length + currentCount;
 
-  renderedComments.forEach((comment) => {
+  commentsToRender.forEach((comment) => {
     const commentItem = commentTemplate.cloneNode(true);
 
-    const nick = commentItem.querySelector('.social__picture');
+    const authorOfComment = commentItem.querySelector('.social__picture');
 
-    nick.src = comment.avatar;
-    nick.alt = comment.name;
+    authorOfComment.src = comment.avatar;
+    authorOfComment.alt = comment.name;
     commentItem.querySelector('.social__text').textContent = comment.message;
 
     commentsContainer.appendChild(commentItem);
   });
 
   shownComments.textContent = renderedCommentsLength;
-  // totalComments.textContent = renderedComments.length;
-  // totalComments.textContent = commentsContainer.children.length;
 
   if (renderedCommentsLength >= comments.length) {
     commentsLoaderButton.classList.add('hidden');
