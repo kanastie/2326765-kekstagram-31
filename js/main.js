@@ -1,8 +1,8 @@
 import './functions.js';
-import {similarPhotosDescription} from './mock-data.js';
+import {createSimilarPhotosDescription} from './mock-data.js';
 import {createUsersPhotosThumbnails} from './users-photos.js';
 import {renderBigPhoto} from './render-big-photo.js';
 
-const usersPhotos = similarPhotosDescription();
+const usersPhotos = createSimilarPhotosDescription();
 createUsersPhotosThumbnails(usersPhotos);
 renderBigPhoto(usersPhotos);

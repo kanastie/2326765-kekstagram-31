@@ -23,6 +23,6 @@ const createPhotoDescription = () => ({
   comments: Array.from({length: getRandomInteger(0, 30)}, createObjectComment)
 });
 
-const similarPhotosDescription = () => Array.from({length: 25}, createPhotoDescription);
+const createSimilarPhotosDescription = () => Array.from({length: 25}, createPhotoDescription);
 
-export {similarPhotosDescription};
+export {createSimilarPhotosDescription};
