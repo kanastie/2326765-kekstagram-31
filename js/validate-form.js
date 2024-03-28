@@ -9,7 +9,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 const hashtagText = uploadForm.querySelector('.text__hashtags');
 const descriptionText = uploadForm.querySelector('.text__description');
 
-const submitButton = uploadForm.querySelector('.img-upload__submit');
+// const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -60,19 +60,22 @@ function checkHashtagLength (value) {
 pristine.addValidator(hashtagText, checkHashtagLength, `Не больше ${HASHTAGS_LENGTH} хэштегов`);
 
 
-const validateForm = () => {
+// pristine.validate();
+// if (!pristine.validate()) {
+//   submitButton.disabled = true;
+// }
+
+
+const sendValidatedForm = () => {
 
   uploadForm.addEventListener('submit', (evt) => {
-    pristine.validate();
     evt.preventDefault();
+    pristine.validate();
 
-    if (!pristine.validate()) {
-      submitButton.setAttribute('disabled', 'true');
-    }
   });
 };
 
-validateForm();
+sendValidatedForm ();
 
 const onField = (evt) => {
   if (isEscapeKey(evt)) {

@@ -5,7 +5,6 @@ const body = document.querySelector('body');
 const uploadForm = body.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
 const uploadFormEdit = uploadForm.querySelector('.img-upload__overlay');
-const uploadLabel = uploadForm.querySelector('.img-upload__label');
 const uploadCloseButton = uploadForm.querySelector('.img-upload__cancel');
 
 const onDocumentKeydownForm = (evt) => {
@@ -22,13 +21,13 @@ function openFormModal () {
 }
 
 function closeFormModal () {
-  uploadCloseButton.classList.add('hidden');
+  uploadFormEdit.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydownForm);
   uploadInput.value = '';
 }
 
-uploadLabel.addEventListener('click', openFormModal);
+uploadInput.addEventListener('click', openFormModal);
 
 uploadCloseButton.addEventListener('click', closeFormModal);
 
