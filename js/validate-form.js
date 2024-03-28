@@ -13,8 +13,8 @@ const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
-  // errorClass: 'has-danger',
-  // successClass: 'has-success',
+  errorClass: 'has-danger',
+  successClass: 'has-success',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'div',
   errorTextClass: 'img-upload__field-wrapper--error'
@@ -27,19 +27,25 @@ pristine.addValidator(descriptionText, validateDescription, `Не больше $
 
 
 const checkHashtagPattern = (value) => {
-  value.split(' ').every((el) => HASHTAG_PATTERN.test(el));
   if (value === '') {
     return true;
   }
+
+  return value.trim().split(' ').every((el) => HASHTAG_PATTERN.test(el));
 };
 
 pristine.addValidator(hashtagText, checkHashtagPattern, 'Хэштег должен начинаться с # и состоять только из букв или цифр');
 
 
 const checkDuplicateHashtag = (value) => {
-  value.toLowerCase().trim().split(' ').filter((el, i, arr) => arr.indexOf(el) === i);
-  // new Set(value.toLowerCase().trim().split(' ').size === value.split(' ').length);
   if (value === '') {
+    return true;
+  }
+
+  const array = value.toLowerCase().trim().split(' ');
+  const a = new Set(array);
+
+  if (a.size === value.trim().split(' ').length) {
     return true;
   }
 };
