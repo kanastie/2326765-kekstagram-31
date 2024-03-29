@@ -1,4 +1,4 @@
-import {openModalPicture} from './modal.js';
+import {openModal} from './modal.js';
 import {removeComments, renderComments} from './render-comments.js';
 
 const usersPhotosContainer = document.querySelector('.pictures');
@@ -29,7 +29,7 @@ const renderBigPhoto = (array) => {
     totalComments.textContent = currentPhoto.comments.length;
     renderComments(currentPhoto.comments);
 
-    openModalPicture();
+    openModal();
   });
 };
 
