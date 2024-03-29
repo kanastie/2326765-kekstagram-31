@@ -9,7 +9,6 @@ const uploadForm = document.querySelector('.img-upload__form');
 const hashtagText = uploadForm.querySelector('.text__hashtags');
 const descriptionText = uploadForm.querySelector('.text__description');
 
-// const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -50,32 +49,33 @@ const checkDuplicateHashtag = (value) => {
   }
 };
 
-pristine.addValidator(hashtagText, checkDuplicateHashtag, 'Хэштеги не должны повторятся');
+pristine.addValidator(hashtagText, checkDuplicateHashtag, 'Хэштеги не должны повторяться');
 
 
-function checkHashtagLength (value) {
-  return value.toLowerCase().trim().split(' ').length <= HASHTAGS_LENGTH;
-}
+const checkHashtagLength = (value) => value.toLowerCase().trim().split(' ').length <= HASHTAGS_LENGTH;
 
 pristine.addValidator(hashtagText, checkHashtagLength, `Не больше ${HASHTAGS_LENGTH} хэштегов`);
 
 
-// pristine.validate();
-// if (!pristine.validate()) {
-//   submitButton.disabled = true;
-// }
+// const submitButton = uploadForm.querySelector('.img-upload__submit');
 
+// const aa = () => {
+//   const isValid = pristine.validate();
 
-const sendValidatedForm = () => {
+//   if (!isValid) {
+//     submitButton.disabled = true;
+//   }
+// };
 
-  uploadForm.addEventListener('submit', (evt) => {
+// aa();
+
+uploadForm.addEventListener('submit', (evt) => {
+  const isValid = pristine.validate();
+
+  if (!isValid) {
     evt.preventDefault();
-    pristine.validate();
-
-  });
-};
-
-sendValidatedForm ();
+  }
+});
 
 const onField = (evt) => {
   if (isEscapeKey(evt)) {
