@@ -1,4 +1,5 @@
 import {closeModal, onDocumentKeydown} from './modal.js';
+import {changeScale} from './scale-control.js';
 
 const body = document.querySelector('body');
 
@@ -18,3 +19,4 @@ uploadInput.addEventListener('change', openForm);
 
 uploadCloseButton.addEventListener('click', closeModal);
 
+changeScale();

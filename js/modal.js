@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import {resetScale} from './scale-control.js';
 
 const body = document.querySelector('body');
 const modalBigPicture = body.querySelector('.big-picture');
@@ -36,6 +37,7 @@ function closeModal () {
   uploadInput.value = '';
   hashtagText.value = '';
   descriptionText.value = '';
+  resetScale();
 }
 
 modalCloseButton.addEventListener('click', closeModal);
