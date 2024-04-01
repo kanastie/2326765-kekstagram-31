@@ -79,24 +79,6 @@ sliderElement.noUiSlider.on('update', () => {
 
 });
 
-
-// const onEffectChange = (evt) => {
-//   const effect = evt.target.value;
-
-//   const addedEffect = EFFECTS(effect);
-
-//   sliderElement.noUiSlider.updateOptions(addedEffect);
-
-
-//   if (effect === 'none') {
-//     sliderElement.classList.add('hidden');
-//     sliderElementContainer.classList.add('hidden');
-//   }
-
-// };
-
-// effectsList.addEventListener('change', onEffectChange);
-
 const addFilterToPreview = (el) => {
   imgPreview.style.filter = PREVIEWS_STYLE[el];
 };
