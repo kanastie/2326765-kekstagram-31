@@ -40,7 +40,6 @@ const EFFECTS = {
   },
 };
 
-
 const DEFAULT = {
   range: {
     min: 0,
@@ -62,8 +61,11 @@ const DEFAULT = {
   },
 };
 
-noUiSlider.create(sliderElement, DEFAULT);
+const clearFilter = () => {
+  imgPreview.style.filter = 'none';
+};
 
+noUiSlider.create(sliderElement, DEFAULT);
 
 const addCurrentFilter = (el) => {
 
@@ -140,3 +142,4 @@ const onEffectChange = (evt) => {
 effectsList.addEventListener('change', onEffectChange);
 
 export {hideSlider};
+export {clearFilter};
