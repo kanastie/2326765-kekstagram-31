@@ -1,4 +1,4 @@
-import {openModal} from './modal.js';
+import {openModal} from './modal-big-picture.js';
 import {removeComments, renderComments} from './render-comments.js';
 
 const usersPhotosContainer = document.querySelector('.pictures');

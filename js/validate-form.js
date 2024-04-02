@@ -1,5 +1,3 @@
-import {isEscapeKey} from './util.js';
-
 const DESCRIPTION_LENGTH = 140;
 const HASHTAGS_LENGTH = 5;
 
@@ -76,16 +74,3 @@ uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
-
-const onField = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    if (document.activeElement === hashtagText || document.activeElement === descriptionText) {
-      evt.stopPropagation();
-    }
-  }
-};
-
-descriptionText.addEventListener('keydown', onField);
-
-hashtagText.addEventListener('keydown', onField);
