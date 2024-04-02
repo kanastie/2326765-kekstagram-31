@@ -1,5 +1,6 @@
 import {closeModal, onDocumentKeydown} from './modal.js';
 import {changeScale} from './scale-control.js';
+import {hideSlider} from './effects-control.js';
 
 const body = document.querySelector('body');
 
@@ -13,6 +14,8 @@ function openForm () {
   uploadFormEdit.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+
+  hideSlider();
 }
 
 uploadInput.addEventListener('change', openForm);

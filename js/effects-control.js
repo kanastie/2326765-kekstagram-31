@@ -2,15 +2,9 @@ const uploadWrapper = document.querySelector('.img-upload__wrapper');
 const sliderElement = uploadWrapper.querySelector('.effect-level__slider');
 const effectValueElement = uploadWrapper.querySelector('.effect-level__value');
 const sliderElementContainer = uploadWrapper.querySelector('.img-upload__effect-level');
-const imgPreview = uploadWrapper.querySelector('.img-upload__preview');
+const imgPreview = uploadWrapper.querySelector('.img-upload__preview > img');
 
-// const checkedEffect = sliderElement.querySelector('.effects__radio');
 const effectsList = uploadWrapper.querySelector('.effects__list');
-
-// пока нужно:
-effectValueElement.style.display = 'block';
-effectValueElement.style.color = 'black';
-
 
 const EFFECTS = {
   origin: {},
@@ -18,37 +12,34 @@ const EFFECTS = {
   chrome: {
     range: {min: 0, max: 1,},
     step: 0.1,
+    start: 1,
   },
 
   sepia: {
     range: {min: 0, max: 1,},
     step: 0.1,
+    start: 1,
   },
 
   marvin: {
     range: {min: 0, max: 100,},
     step: 1,
+    start: 100,
   },
 
   phobos: {
     range: {min: 0, max: 3,},
     step: 0.1,
+    start: 3,
   },
 
   heat: {
     range: {min: 0, max: 3,},
     step: 0.1,
+    start: 3,
   },
 };
 
-const PREVIEWS_STYLE = {
-  none: 'none',
-  chrome: `grayscale(${effectValueElement.value})`,
-  sepia: `sepia(${effectValueElement.value})`,
-  marvin: `invert(${effectValueElement.value}%)`,
-  phobos: `blur(${effectValueElement.value}px)`,
-  heat: `brightness(${effectValueElement.value})`,
-};
 
 const DEFAULT = {
   range: {
@@ -73,51 +64,79 @@ const DEFAULT = {
 
 noUiSlider.create(sliderElement, DEFAULT);
 
-sliderElement.noUiSlider.on('update', () => {
-  const currentSliderValue = sliderElement.noUiSlider.get();
-  effectValueElement.value = currentSliderValue;
 
-});
+const addCurrentFilter = (el) => {
 
-const addFilterToPreview = (el) => {
-  imgPreview.style.filter = PREVIEWS_STYLE[el];
+  sliderElement.noUiSlider.on('update', () => {
+    const currentSliderValue = sliderElement.noUiSlider.get();
+    effectValueElement.value = currentSliderValue;
+
+    const PREVIEWS_STYLE = {
+      none: 'none',
+      chrome: `grayscale(${currentSliderValue})`,
+      sepia: `sepia(${currentSliderValue})`,
+      marvin: `invert(${currentSliderValue}%)`,
+      phobos: `blur(${currentSliderValue}px)`,
+      heat: `brightness(${currentSliderValue})`,
+    };
+
+    const addFilterToPreview = () => {
+      imgPreview.style.filter = PREVIEWS_STYLE[el];
+    };
+    addFilterToPreview();
+
+  });
 };
 
 const updateSliderOptions = (item) => {
-  // нужен сброс к дефолтному значению (100%)
   sliderElement.noUiSlider.updateOptions(EFFECTS[item]);
+};
+
+const showSlider = () => {
+  sliderElement.classList.remove('hidden');
+  sliderElementContainer.classList.remove('hidden');
+};
+
+const hideSlider = () => {
+  sliderElement.classList.add('hidden');
+  sliderElementContainer.classList.add('hidden');
 };
 
 const onEffectChange = (evt) => {
   const effect = evt.target.value;
   switch(effect) {
     case 'none':
-      addFilterToPreview('none');
-      sliderElement.classList.add('hidden');
-      sliderElementContainer.classList.add('hidden');
+      addCurrentFilter('none');
+      hideSlider();
       break;
     case 'chrome':
-      addFilterToPreview('chrome');
+      addCurrentFilter('chrome');
       updateSliderOptions('chrome');
+      showSlider();
       break;
     case 'sepia':
-      addFilterToPreview('sepia');
+      addCurrentFilter('sepia');
       updateSliderOptions('sepia');
+      showSlider();
       break;
     case 'marvin':
-      addFilterToPreview('marvin');
+      addCurrentFilter('marvin');
       updateSliderOptions('marvin');
+      showSlider();
       break;
     case 'phobos':
-      addFilterToPreview('phobos');
+      addCurrentFilter('phobos');
       updateSliderOptions('phobos');
+      showSlider();
       break;
     case 'heat':
-      addFilterToPreview('heat');
+      addCurrentFilter('heat');
       updateSliderOptions('heat');
+      showSlider();
       break;
   }
 };
 
-
 effectsList.addEventListener('change', onEffectChange);
+
+export {hideSlider};
