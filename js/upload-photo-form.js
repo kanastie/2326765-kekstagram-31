@@ -57,4 +57,4 @@ descriptionText.addEventListener('keydown', onField);
 
 hashtagText.addEventListener('keydown', onField);
 
-export {onDocumentKeydown};
+export {onDocumentKeydown, closeForm};
