@@ -5,7 +5,7 @@ const ALERT_SHOW_TIME = 5000;
 const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
 const ROUTE = {
-  GET_DATA: '/dta',
+  GET_DATA: '/data',
   SEND_DATA: '/',
 };
 
@@ -105,9 +105,7 @@ const sendData = (onSuccess, onFail, body) => {
       }
       onSuccess(showSuccess());
     })
-    .catch(() => {
-      onFail(showAlert());
-    })
+    .catch(() => showAlert())
     .finally();
 };
 
