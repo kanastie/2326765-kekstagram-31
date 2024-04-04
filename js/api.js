@@ -92,7 +92,7 @@ const getData = (onSuccess, onFail) => {
     .catch(() => showDataAlert());
 };
 
-const sendData = (onSuccess, onFail, body) => {
+const sendData = (onSuccess, onFail, onFinally, body) => {
   fetch(`${BASE_URL}${ROUTE.SEND_DATA}`,
     {
       method: 'POST',
@@ -106,7 +106,7 @@ const sendData = (onSuccess, onFail, body) => {
       onSuccess(showSuccess());
     })
     .catch(() => showAlert())
-    .finally();
+    .finally(() => onFinally());
 };
 
 export {getData, sendData};
