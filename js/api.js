@@ -5,7 +5,7 @@ const ALERT_SHOW_TIME = 5000;
 const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
 const ROUTE = {
-  GET_DATA: '/data',
+  GET_DATA: '/dta',
   SEND_DATA: '/',
 };
 
@@ -37,17 +37,18 @@ const showSuccess = () => {
       close();
     }
   };
-  document.addEventListener('keydown', onDocumentKeydown);
 
   function close () {
     document.removeEventListener('keydown', onDocumentKeydown);
     addField.classList.add('hidden');
-
   }
+
+  document.addEventListener('keydown', onDocumentKeydown);
 
   const button = document.querySelector('.success__button');
   button.addEventListener('click', close);
 };
+
 
 const showAlert = () => {
   const alertContainer = document.querySelector('#error').content;
@@ -64,12 +65,13 @@ const showAlert = () => {
       close();
     }
   };
-  document.addEventListener('keydown', onDocumentKeydown);
+
   function close () {
     document.removeEventListener('keydown', onDocumentKeydown);
     addField.classList.add('hidden');
-
   }
+
+  document.addEventListener('keydown', onDocumentKeydown);
 
   const button = document.querySelector('.error__button');
   button.addEventListener('click', close);
@@ -87,9 +89,7 @@ const getData = (onSuccess, onFail) => {
     .then((data) => {
       onSuccess(data);
     })
-    .catch(() => {
-      onFail(showDataAlert());
-    });
+    .catch(() => showDataAlert());
 };
 
 const sendData = (onSuccess, onFail, body) => {
