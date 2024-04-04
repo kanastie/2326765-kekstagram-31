@@ -1,4 +1,4 @@
-import {showSuccess, showAlert} from './util.js';
+import {sendData} from './api.js';
 
 const DESCRIPTION_LENGTH = 140;
 const HASHTAGS_LENGTH = 5;
@@ -57,46 +57,33 @@ const checkHashtagLength = (value) => value.toLowerCase().trim().split(' ').leng
 pristine.addValidator(hashtagText, checkHashtagLength, `Не больше ${HASHTAGS_LENGTH} хэштегов`);
 
 
-// const submitButton = uploadForm.querySelector('.img-upload__submit');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 
-// const aa = () => {
-//   const isValid = pristine.validate();
+const blockSumbitButton = () => {
+  submitButton.disavbled = true;
+};
 
-//   if (!isValid) {
-//     submitButton.disabled = true;
-//   }
-// };
+const unblockSumbitButton = () => {
+  submitButton.disavbled = false;
+};
 
-// aa();
-
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = (onSuccess, onFail) => {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
 
     if (isValid) {
+      blockSumbitButton();
       const formData = new FormData(evt.target);
 
-      fetch('https://31.javascript.htmlacadem.pro/kekstagram',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      )
-        .then((response) => {
-          if (response.ok) {
-            onSuccess();
-            showSuccess();
-          }
-          showAlert();
-        })
-        .catch((err) => {
-          showAlert(err);
-        });
-
+      sendData(
+        () => onSuccess,
+        () => onFail,
+        () => unblockSumbitButton(),
+        formData,
+      );
     }
-
   });
 };
 
