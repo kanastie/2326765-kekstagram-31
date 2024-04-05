@@ -2,7 +2,7 @@ const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
 const scaleControlSmaller = imgUploadWrapper.querySelector('.scale__control--smaller');
 const scaleControlBigger = imgUploadWrapper.querySelector('.scale__control--bigger');
 const scaleControlValue = imgUploadWrapper.querySelector('.scale__control--value');
-const imgPreview = imgUploadWrapper.querySelector('.img-upload__preview');
+const imgPreview = imgUploadWrapper.querySelector('.img-upload__preview > img');
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const STEP = 25;
@@ -17,7 +17,7 @@ const changeScale = () => {
       scaleValue -= STEP;
       scaleControlValue.value = `${scaleValue}%`;
 
-      imgPreview.querySelector('img').style.transform = `scale(${scaleValue / 100})`;
+      imgPreview.style.transform = `scale(${scaleValue / 100})`;
     }
   });
 
@@ -27,7 +27,7 @@ const changeScale = () => {
       scaleValue += STEP;
       scaleControlValue.value = `${scaleValue}%`;
 
-      imgPreview.querySelector('img').style.transform = `scale(${scaleValue / 100})`;
+      imgPreview.style.transform = `scale(${scaleValue / 100})`;
     }
   });
 };
