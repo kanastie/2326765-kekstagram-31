@@ -67,7 +67,10 @@ const unblockSumbitButton = () => {
   submitButton.disavbled = false;
 };
 
-const setUserFormSubmit = (onSuccess, onFail) => {
+import {closeForm} from './upload-photo-form.js';
+import {showSuccess, showAlert} from './alert-messages.js';
+
+const setUserFormSubmit = (onSuccess) => {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -78,13 +81,22 @@ const setUserFormSubmit = (onSuccess, onFail) => {
       const formData = new FormData(evt.target);
 
       sendData(
-        () => onSuccess,
-        () => onFail,
-        () => unblockSumbitButton(),
         formData,
+        () => {
+          onSuccess();
+          showSuccess();
+        },
+        () => {
+          showAlert();
+        },
+        () => {
+          unblockSumbitButton();
+        },
       );
     }
   });
 };
 
-export {setUserFormSubmit};
+setUserFormSubmit(closeForm);
+
+// export {setUserFormSubmit};
