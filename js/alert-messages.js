@@ -2,27 +2,42 @@ import {isEscapeKey} from './util.js';
 
 const ALERT_SHOW_TIME = 5000;
 
-const showDataAlert = () => {
-  const alertContainer = document.querySelector('#data-error').content;
-  const content = alertContainer.querySelector('.data-error');
+let addField = null;
+
+const showSomeAlert = (type) => {
+
+  const alertContainer = document.querySelector(`#${type}`).content;
+  const content = alertContainer.querySelector(`.${type}`);
   const clone = content.cloneNode(true);
   const fragment = document.createDocumentFragment();
-  const addField = fragment.appendChild(clone);
+  addField = fragment.appendChild(clone);
 
   document.body.appendChild(addField);
 
-  setTimeout(() => addField.remove(), ALERT_SHOW_TIME);
+  return addField;
 };
 
+const showDataAlert = () => {
+
+  addField = showSomeAlert('data-error');
+
+  document.body.appendChild(addField);
+
+  const alert = addField;
+
+  setTimeout(() => {
+    alert.remove();
+  }, ALERT_SHOW_TIME);
+
+};
 
 const showSuccess = () => {
-  const successContainer = document.querySelector('#success').content;
-  const content = successContainer.querySelector('.success');
-  const clone = content.cloneNode(true);
-  const fragment = document.createDocumentFragment();
-  const addField = fragment.appendChild(clone);
+
+  addField = showSomeAlert('success');
 
   document.body.appendChild(addField);
+
+  const alert = addField;
 
   const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
@@ -33,24 +48,26 @@ const showSuccess = () => {
 
   function close () {
     document.removeEventListener('keydown', onDocumentKeydown);
-    addField.classList.add('hidden');
+    alert.classList.add('hidden');
   }
 
   document.addEventListener('keydown', onDocumentKeydown);
 
-  const button = document.querySelector('.success__button');
-  button.addEventListener('click', close);
-};
+  document.querySelector('.success__button').addEventListener('click', close);
 
+  // console.log(alert);
+  // console.log();
+
+  // return;
+};
 
 const showAlert = () => {
-  const alertContainer = document.querySelector('#error').content;
-  const content = alertContainer.querySelector('.error');
-  const clone = content.cloneNode(true);
-  const fragment = document.createDocumentFragment();
-  const addField = fragment.appendChild(clone);
+
+  addField = showSomeAlert('error');
 
   document.body.appendChild(addField);
+
+  const alert = addField;
 
   const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
@@ -61,13 +78,20 @@ const showAlert = () => {
 
   function close () {
     document.removeEventListener('keydown', onDocumentKeydown);
-    addField.classList.add('hidden');
+    alert.classList.add('hidden');
   }
 
   document.addEventListener('keydown', onDocumentKeydown);
 
-  const button = document.querySelector('.error__button');
-  button.addEventListener('click', close);
+  document.querySelector('.error__button').addEventListener('click', close);
+
+  // console.log(alert);
+  // console.log(a);
+
+  // return a;
 };
+
+// console.log(showAlert);
+// console.log(showAlert());
 
 export {showDataAlert, showSuccess, showAlert};

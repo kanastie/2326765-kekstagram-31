@@ -70,6 +70,7 @@ const unblockSumbitButton = () => {
 import {closeForm} from './upload-photo-form.js';
 import {showSuccess, showAlert} from './alert-messages.js';
 
+
 const setUserFormSubmit = (onSuccess) => {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
