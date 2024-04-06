@@ -31,41 +31,35 @@ const showDataAlert = () => {
 
 };
 
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    close();
+  }
+};
+
+const onDocumentClick = (evt) => {
+  if (!evt.target.classList.contains('succes__inner, error__inner')) {
+    close();
+  }
+};
+
+function close () {
+  const alertMessage = document.querySelector('.success, .error');
+  alertMessage.classList.add('hidden');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onDocumentClick);
+}
+
 const showSuccess = () => {
 
   addField = showSomeAlert('success');
 
   document.body.appendChild(addField);
 
-  const alert = addField;
-
-  const onDocumentKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      close();
-    }
-  };
-
-  const onDocumentClick = (evt) => {
-    if (!evt.target.classList.contains('succes__inner')) {
-      close();
-    }
-  };
-
-  function close () {
-    document.removeEventListener('keydown', onDocumentKeydown);
-    alert.classList.add('hidden');
-  }
-
   document.addEventListener('keydown', onDocumentKeydown);
-
   document.querySelector('.success__button').addEventListener('click', close);
   document.addEventListener('click', onDocumentClick);
-
-  // console.log(alert);
-  // console.log();
-
-  // return;
 };
 
 const showAlert = () => {
@@ -74,39 +68,10 @@ const showAlert = () => {
 
   document.body.appendChild(addField);
 
-  const alert = addField;
-
-  const onDocumentKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      close();
-    }
-  };
-
-  const onDocumentClick = (evt) => {
-    if (!evt.target.classList.contains('error__inner')) {
-      close();
-    }
-  };
-
-  function close () {
-    document.removeEventListener('keydown', onDocumentKeydown);
-    alert.classList.add('hidden');
-  }
-
   document.addEventListener('keydown', onDocumentKeydown);
-
   document.querySelector('.error__button').addEventListener('click', close);
   document.addEventListener('click', onDocumentClick);
-
-  // console.log(alert);
-  // console.log(a);
-
-  // return a;
 };
-
-// console.log(showAlert);
-// console.log(showAlert());
 
 const showFileError = (errMessage) => {
 

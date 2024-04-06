@@ -19,7 +19,7 @@ const getData = (onSuccess, onFail) => {
     .catch(() => onFail());
 };
 
-const sendData = (body, onSuccess, onFail, onFinally) => {
+const sendData = (body, onFail, onSuccess, onFinally) => {
   fetch(`${BASE_URL}${ROUTE.SEND_DATA}`,
     {
       method: 'POST',
@@ -27,10 +27,11 @@ const sendData = (body, onSuccess, onFail, onFinally) => {
     },
   )
     .then((response) => {
-      if (response.ok) {
+      if (!response.ok) {
+        onFail();
+      } else {
         onSuccess();
       }
-      onFail();
     })
     .catch(() => onFail())
     .finally(() => onFinally());

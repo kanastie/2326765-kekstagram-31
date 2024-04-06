@@ -84,11 +84,12 @@ const setUserFormSubmit = (onSuccess) => {
       sendData(
         formData,
         () => {
-          onSuccess();
-          showSuccess();
+          showAlert();
+
         },
         () => {
-          showAlert();
+          onSuccess();
+          showSuccess();
         },
         () => {
           unblockSumbitButton();
