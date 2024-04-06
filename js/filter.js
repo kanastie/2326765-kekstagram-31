@@ -1,4 +1,5 @@
 import {createUsersPhotosThumbnails} from './users-photos.js';
+import {debounce} from './util.js';
 
 const Filters = {
   DEFAULT: 'filter-default',
@@ -6,12 +7,15 @@ const Filters = {
   DISCUSSED: 'filter-discussed',
 };
 
+const RENDER_DELAY = 500;
+
 const RANDOM_PICTURES_AMOUNT = 10;
 
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 let currentFilter = 'filter-default';
 const filterElement = document.querySelector('.img-filters');
+const picture = document.querySelector('.picture');
 
 const randomSort = () => 0.5 - Math.random();
 
@@ -36,6 +40,11 @@ const onFilterClick = (evt) => {
   applyFilter();
 };
 
+const debouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
+
+const clearThumbnails = () => {
+  picture.forEach((el) => el.remove());
+};
 
 function applyFilter (filter, data) {
 
@@ -44,30 +53,26 @@ function applyFilter (filter, data) {
   // switch (evt.target.id)
   switch (filter) {
     case Filters.DEFAULT:
-      return data;
-
+      clearThumbnails();
+      return debouncedPictures(data);
     case Filters.RANDOM:
+      clearThumbnails();
       copyArray.sort(randomSort).slice(0, RANDOM_PICTURES_AMOUNT);
+      debouncedPictures(copyArray);
       break;
-
     case Filters.DISCUSSED:
+      clearThumbnails();
       copyArray.sort(sortByComments);
+      debouncedPictures(copyArray);
       break;
   }
+}
 
-};
-
-// const picture = document.querySelectorAll('.picture');
-// const filterButton = document.querySelectorAll('.img-filters__button');
-
-// const removeThumbnails = () => {
-//   picture.forEach((pic) => pic.remove());
-// };
-
-const changeFilter = (photos) => {
+const changeFilter = () => {
   filterElement.classList.remove('img-filters--inactive');
   filterElement.addEventListener('click', onFilterClick);
 
 };
+
 
 export {changeFilter};
