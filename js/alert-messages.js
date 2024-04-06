@@ -94,4 +94,21 @@ const showAlert = () => {
 // console.log(showAlert);
 // console.log(showAlert());
 
-export {showDataAlert, showSuccess, showAlert};
+const showFileError = (errMessage) => {
+
+  addField = showSomeAlert('data-error');
+
+  document.body.appendChild(addField);
+
+  if (errMessage) {
+    addField.textContent = errMessage;
+  }
+  const alert = addField;
+
+  setTimeout(() => {
+    alert.remove();
+  }, ALERT_SHOW_TIME);
+
+};
+
+export {showDataAlert, showSuccess, showAlert, showFileError};

@@ -1,3 +1,5 @@
+import {showFileError} from './alert-messages.js';
+
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const imgUpload = document.querySelector('.img-upload');
@@ -9,14 +11,15 @@ fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
 
-  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
 
   if (matches) {
-    const picture = URL.createObjectURL(file);
-    preview.src = picture;
+    const url = URL.createObjectURL(file);
+    preview.src = url;
 
     for (let i = 0; i <= previewInEffects.length; i++) {
-      previewInEffects[i].style.backgroundImage = `url('${picture}')`;
+      previewInEffects[i].style.backgroundImage = `url('${url}')`;
     }
   }
+  showFileError('Неверный тип файла');
 });
