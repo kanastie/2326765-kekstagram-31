@@ -7,11 +7,13 @@ import './effects-control.js';
 import {getData} from './api.js';
 import {showDataAlert} from './alert-messages.js';
 import './user-choosen-photo-preview.js';
+import {changeFilter} from './filter.js';
 
 getData(
   (usersPhotos) => {
     createUsersPhotosThumbnails(usersPhotos);
     renderBigPhoto(usersPhotos);
+    changeFilter(usersPhotos);
   },
   () => {
     showDataAlert();
