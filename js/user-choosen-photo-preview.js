@@ -18,7 +18,7 @@ fileChooser.addEventListener('change', () => {
     preview.src = url;
 
     for (let i = 0; i <= previewInEffects.length; i++) {
-      previewInEffects[i].style.backgroundImage = `url('${url}')`;
+      previewInEffects[i].style.backgroundImage = `url(${url})`;
     }
   }
   showFileError('Неверный тип файла');

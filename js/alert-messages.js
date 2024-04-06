@@ -46,6 +46,12 @@ const showSuccess = () => {
     }
   };
 
+  const onDocumentClick = (evt) => {
+    if (!evt.target.classList.contains('succes__inner')) {
+      close();
+    }
+  };
+
   function close () {
     document.removeEventListener('keydown', onDocumentKeydown);
     alert.classList.add('hidden');
@@ -54,6 +60,7 @@ const showSuccess = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 
   document.querySelector('.success__button').addEventListener('click', close);
+  document.addEventListener('click', onDocumentClick);
 
   // console.log(alert);
   // console.log();
@@ -76,6 +83,12 @@ const showAlert = () => {
     }
   };
 
+  const onDocumentClick = (evt) => {
+    if (!evt.target.classList.contains('error__inner')) {
+      close();
+    }
+  };
+
   function close () {
     document.removeEventListener('keydown', onDocumentKeydown);
     alert.classList.add('hidden');
@@ -84,6 +97,7 @@ const showAlert = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 
   document.querySelector('.error__button').addEventListener('click', close);
+  document.addEventListener('click', onDocumentClick);
 
   // console.log(alert);
   // console.log(a);
