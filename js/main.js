@@ -6,6 +6,7 @@ import './validate-form.js';
 import './effects-control.js';
 import {getData} from './api.js';
 import {showDataAlert} from './alert-messages.js';
+import './user-choosen-photo-preview.js';
 
 getData(
   (usersPhotos) => {
