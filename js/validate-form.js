@@ -11,6 +11,12 @@ const uploadForm = document.querySelector('.img-upload__form');
 const hashtagText = uploadForm.querySelector('.text__hashtags');
 const descriptionText = uploadForm.querySelector('.text__description');
 
+const submitButton = uploadForm.querySelector('.img-upload__submit');
+
+const submitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...',
+};
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -57,13 +63,6 @@ const checkHashtagLength = (value) => value.toLowerCase().trim().split(' ').leng
 
 pristine.addValidator(hashtagText, checkHashtagLength, `Не больше ${HASHTAGS_LENGTH} хэштегов`);
 
-
-const submitButton = uploadForm.querySelector('.img-upload__submit');
-
-const submitButtonText = {
-  IDLE: 'Сохранить',
-  SENDING: 'Сохраняю...',
-};
 
 const blockSumbitButton = () => {
   submitButton.disabled = true;
