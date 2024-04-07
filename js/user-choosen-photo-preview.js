@@ -17,9 +17,10 @@ fileChooser.addEventListener('change', () => {
     const url = URL.createObjectURL(file);
     preview.src = url;
 
-    for (let i = 0; i <= previewInEffects.length; i++) {
+    for (let i = 0; i < previewInEffects.length; i++) {
       previewInEffects[i].style.backgroundImage = `url(${url})`;
     }
+  } else {
+    showFileError('Неверный тип файла');
   }
-  showFileError('Неверный тип файла');
 });
