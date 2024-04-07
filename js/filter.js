@@ -18,7 +18,7 @@ const buttons = filterElement.querySelectorAll('.img-filters__button');
 
 let copyArray = [];
 
-const randomSort = () => 0.5 - Math.random();
+const sortRandomly = () => 0.5 - Math.random();
 
 const sortByComments = (a, b) => b.comments.length - a.comments.length;
 
@@ -59,7 +59,7 @@ function changeThumbnailsList (data) {
         return debouncedPictures(data);
       case Filters.RANDOM:
         clearThumbnails();
-        debouncedPictures(copyArray.sort(randomSort).slice(0, RANDOM_PICTURES_AMOUNT));
+        debouncedPictures(copyArray.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
         break;
       case Filters.DISCUSSED:
         clearThumbnails();
