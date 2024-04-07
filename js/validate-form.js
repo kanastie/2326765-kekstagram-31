@@ -60,12 +60,19 @@ pristine.addValidator(hashtagText, checkHashtagLength, `Не больше ${HASH
 
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 
+const submitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...',
+};
+
 const blockSumbitButton = () => {
-  submitButton.disavbled = true;
+  submitButton.disabled = true;
+  submitButton.textContent = submitButtonText.SENDING;
 };
 
 const unblockSumbitButton = () => {
-  submitButton.disavbled = false;
+  submitButton.disabled = false;
+  submitButton.textContent = submitButtonText.IDLE;
 };
 
 
@@ -76,8 +83,8 @@ const setUserFormSubmit = (onSuccess) => {
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSumbitButton();
       const formData = new FormData(evt.target);
+      blockSumbitButton();
 
       sendData(
         formData,
