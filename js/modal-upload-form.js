@@ -11,8 +11,10 @@ const uploadCloseButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagText = uploadForm.querySelector('.text__hashtags');
 const descriptionText = uploadForm.querySelector('.text__description');
 
+const isAlertShown = () => Boolean(document.querySelector('.error'));
+
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !(document.activeElement === hashtagText || document.activeElement === descriptionText)) {
+  if (isEscapeKey(evt) && !(document.activeElement === hashtagText || document.activeElement === descriptionText) && !isAlertShown()) {
     evt.preventDefault();
     closeForm();
   }

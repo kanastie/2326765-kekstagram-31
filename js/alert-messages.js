@@ -46,9 +46,11 @@ const onDocumentClick = (evt) => {
 
 function close () {
   const alertMessage = document.querySelector('.success, .error');
-  alertMessage.classList.add('hidden');
+  alertMessage.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
-  document.removeEventListener('keydown', onDocumentClick);
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('click', close);
+  document.removeEventListener('keydown', close);
 }
 
 const showSuccess = () => {
@@ -91,3 +93,4 @@ const showFileError = (errMessage) => {
 };
 
 export {showDataAlert, showSuccess, showAlert, showFileError};
+
