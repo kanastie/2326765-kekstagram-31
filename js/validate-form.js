@@ -1,4 +1,6 @@
 import {sendData} from './api.js';
+import {closeForm} from './modal-upload-form.js';
+import {showSuccess, showAlert} from './alert-messages.js';
 
 const DESCRIPTION_LENGTH = 140;
 const HASHTAGS_LENGTH = 5;
@@ -29,7 +31,6 @@ const checkHashtagPattern = (value) => {
   if (value === '') {
     return true;
   }
-
   return value.trim().split(' ').every((el) => HASHTAG_PATTERN.test(el));
 };
 
@@ -67,9 +68,6 @@ const unblockSumbitButton = () => {
   submitButton.disavbled = false;
 };
 
-import {closeForm} from './upload-photo-form.js';
-import {showSuccess, showAlert} from './alert-messages.js';
-
 
 const setUserFormSubmit = (onSuccess) => {
   uploadForm.addEventListener('submit', (evt) => {
@@ -99,5 +97,3 @@ const setUserFormSubmit = (onSuccess) => {
 };
 
 setUserFormSubmit(closeForm);
-
-// export {setUserFormSubmit};

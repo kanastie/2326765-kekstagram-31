@@ -73,6 +73,6 @@ const changeFilter = (data) => {
   filterElement.classList.remove('img-filters--inactive');
   switchFilter();
   changeThumbnailsList(data);
-}
+};
 
 export {changeFilter};
