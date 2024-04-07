@@ -85,7 +85,6 @@ const setUserFormSubmit = (onSuccess) => {
         formData,
         () => {
           showAlert();
-
         },
         () => {
           onSuccess();

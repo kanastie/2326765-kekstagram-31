@@ -13,66 +13,66 @@ const RANDOM_PICTURES_AMOUNT = 10;
 
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
-let currentFilter = 'filter-default';
 const filterElement = document.querySelector('.img-filters');
-const picture = document.querySelector('.picture');
+const buttons = filterElement.querySelectorAll('.img-filters__button');
+
+let copyArray = [];
 
 const randomSort = () => 0.5 - Math.random();
 
 const sortByComments = (a, b) => b.comments.length - a.comments.length;
 
+const switchFilter = () => {
 
-const onFilterClick = (evt) => {
-  const targetButton = evt.target;
-  const activeButton = filterElement.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
+  for (let i = 0; i < buttons.length; i++) {
+    let currentButton = null;
+    currentButton = buttons[i];
 
-  if (!targetButton.matches('button')) {
-    return;
+    currentButton.addEventListener('click', (evt) => {
+      const targetButton = evt.target;
+      const activeButton = filterElement.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
+
+      if (targetButton === activeButton) {
+        return;
+      }
+      activeButton.classList.remove(ACTIVE_BUTTON_CLASS);
+      targetButton.classList.add(ACTIVE_BUTTON_CLASS);
+    });
   }
-
-  if (targetButton === activeButton) {
-    return;
-  }
-  activeButton.classList.remove(ACTIVE_BUTTON_CLASS);
-  targetButton.classList.add(ACTIVE_BUTTON_CLASS);
-  currentFilter = targetButton.getAttribute('id');
-
-  applyFilter();
 };
 
 const debouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
 
 const clearThumbnails = () => {
-  picture.forEach((el) => el.remove());
+  const pictures = document.querySelectorAll('a.picture');
+  pictures.forEach((el) => el.remove());
 };
 
-function applyFilter (filter, data) {
+function changeThumbnailsList (data) {
 
-  const copyArray = data.slice();
+  copyArray = data.slice();
 
-  // switch (evt.target.id)
-  switch (filter) {
-    case Filters.DEFAULT:
-      clearThumbnails();
-      return debouncedPictures(data);
-    case Filters.RANDOM:
-      clearThumbnails();
-      copyArray.sort(randomSort).slice(0, RANDOM_PICTURES_AMOUNT);
-      debouncedPictures(copyArray);
-      break;
-    case Filters.DISCUSSED:
-      clearThumbnails();
-      copyArray.sort(sortByComments);
-      debouncedPictures(copyArray);
-      break;
-  }
+  filterElement.addEventListener('click', (evt) => {
+    switch (evt.target.id) {
+      case Filters.DEFAULT:
+        clearThumbnails();
+        return debouncedPictures(data);
+      case Filters.RANDOM:
+        clearThumbnails();
+        debouncedPictures(copyArray.sort(randomSort).slice(0, RANDOM_PICTURES_AMOUNT));
+        break;
+      case Filters.DISCUSSED:
+        clearThumbnails();
+        debouncedPictures(copyArray.sort(sortByComments));
+        break;
+    }
+  });
 }
 
-const changeFilter = () => {
+const changeFilter = (data) => {
   filterElement.classList.remove('img-filters--inactive');
-  filterElement.addEventListener('click', onFilterClick);
-
-};
-
+  switchFilter();
+  changeThumbnailsList(data);
+}
 
 export {changeFilter};
