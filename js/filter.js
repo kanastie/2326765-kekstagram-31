@@ -44,7 +44,7 @@ const switchFilter = () => {
 const debouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
 
 const clearThumbnails = () => {
-  const pictures = document.querySelectorAll('a.picture');
+  const pictures = document.querySelectorAll('.picture');
   pictures.forEach((el) => el.remove());
 };
 

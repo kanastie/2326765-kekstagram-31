@@ -33,7 +33,7 @@ const changeScale = () => {
 };
 
 const resetScale = () => {
-  scaleControlValue.value = MAX_SCALE;
+  scaleControlValue.value = `${MAX_SCALE}%`;
   scaleValue = MAX_SCALE;
   imgPreview.style.transform = `scale(${scaleValue / 100})`;
 };
