@@ -7,7 +7,11 @@ const imgPreview = uploadWrapper.querySelector('.img-upload__preview > img');
 const effectsList = uploadWrapper.querySelector('.effects__list');
 
 const EFFECTS = {
-  origin: {},
+  origin: {
+    range: {min: 0, max: 1,},
+    step: 1,
+    start: 100,
+  },
 
   chrome: {
     range: {min: 0, max: 1,},
@@ -61,8 +65,11 @@ const DEFAULT = {
   },
 };
 
+let currentEffect = EFFECTS.origin;
+
 const clearFilter = () => {
   imgPreview.style.filter = 'none';
+  currentEffect = EFFECTS.origin;
 };
 
 noUiSlider.create(sliderElement, DEFAULT);
@@ -105,8 +112,8 @@ const hideSlider = () => {
 };
 
 const onEffectChange = (evt) => {
-  const effect = evt.target.value;
-  switch(effect) {
+  currentEffect = evt.target.value;
+  switch(currentEffect) {
     case 'none':
       addCurrentFilter('none');
       hideSlider();
