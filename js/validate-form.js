@@ -1,4 +1,6 @@
 import {sendData} from './api.js';
+import {closeForm} from './modal-upload-form.js';
+import {showSuccess, showAlert} from './alert-messages.js';
 
 const DESCRIPTION_LENGTH = 140;
 const HASHTAGS_LENGTH = 5;
@@ -9,6 +11,12 @@ const uploadForm = document.querySelector('.img-upload__form');
 const hashtagText = uploadForm.querySelector('.text__hashtags');
 const descriptionText = uploadForm.querySelector('.text__description');
 
+const submitButton = uploadForm.querySelector('.img-upload__submit');
+
+const submitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...',
+};
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -29,8 +37,7 @@ const checkHashtagPattern = (value) => {
   if (value === '') {
     return true;
   }
-
-  return value.trim().split(' ').every((el) => HASHTAG_PATTERN.test(el));
+  return value.trim().split(/\s+/).every((el) => HASHTAG_PATTERN.test(el));
 };
 
 pristine.addValidator(hashtagText, checkHashtagPattern, 'Хэштег должен начинаться с # и состоять только из букв или цифр');
@@ -41,10 +48,10 @@ const checkDuplicateHashtag = (value) => {
     return true;
   }
 
-  const array = value.toLowerCase().trim().split(' ');
+  const array = value.toLowerCase().trim().split(/\s+/);
   const a = new Set(array);
 
-  if (a.size === value.trim().split(' ').length) {
+  if (a.size === value.trim().split(/\s+/).length) {
     return true;
   }
 };
@@ -52,23 +59,22 @@ const checkDuplicateHashtag = (value) => {
 pristine.addValidator(hashtagText, checkDuplicateHashtag, 'Хэштеги не должны повторяться');
 
 
-const checkHashtagLength = (value) => value.toLowerCase().trim().split(' ').length <= HASHTAGS_LENGTH;
+const checkHashtagLength = (value) => value.toLowerCase().trim().split(/\s+/).length <= HASHTAGS_LENGTH;
 
 pristine.addValidator(hashtagText, checkHashtagLength, `Не больше ${HASHTAGS_LENGTH} хэштегов`);
 
 
-const submitButton = uploadForm.querySelector('.img-upload__submit');
+const resetValidator = () => pristine.reset();
 
 const blockSumbitButton = () => {
-  submitButton.disavbled = true;
+  submitButton.disabled = true;
+  submitButton.textContent = submitButtonText.SENDING;
 };
 
 const unblockSumbitButton = () => {
-  submitButton.disavbled = false;
+  submitButton.disabled = false;
+  submitButton.textContent = submitButtonText.IDLE;
 };
-
-import {closeForm} from './upload-photo-form.js';
-import {showSuccess, showAlert} from './alert-messages.js';
 
 
 const setUserFormSubmit = (onSuccess) => {
@@ -78,17 +84,17 @@ const setUserFormSubmit = (onSuccess) => {
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSumbitButton();
       const formData = new FormData(evt.target);
+      blockSumbitButton();
 
       sendData(
         formData,
         () => {
-          onSuccess();
-          showSuccess();
+          showAlert();
         },
         () => {
-          showAlert();
+          onSuccess();
+          showSuccess();
         },
         () => {
           unblockSumbitButton();
@@ -100,4 +106,4 @@ const setUserFormSubmit = (onSuccess) => {
 
 setUserFormSubmit(closeForm);
 
-// export {setUserFormSubmit};
+export {resetValidator};

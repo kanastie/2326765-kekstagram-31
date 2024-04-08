@@ -2,28 +2,28 @@ import {isEscapeKey} from './util.js';
 
 const ALERT_SHOW_TIME = 5000;
 
-let addField = null;
+let addedField = null;
 
-const showSomeAlert = (type) => {
+const showSomeNotification = (type) => {
 
   const alertContainer = document.querySelector(`#${type}`).content;
   const content = alertContainer.querySelector(`.${type}`);
   const clone = content.cloneNode(true);
   const fragment = document.createDocumentFragment();
-  addField = fragment.appendChild(clone);
+  addedField = fragment.appendChild(clone);
 
-  document.body.appendChild(addField);
+  document.body.appendChild(addedField);
 
-  return addField;
+  return addedField;
 };
 
 const showDataAlert = () => {
 
-  addField = showSomeAlert('data-error');
+  addedField = showSomeNotification('data-error');
 
-  document.body.appendChild(addField);
+  document.body.appendChild(addedField);
 
-  const alert = addField;
+  const alert = addedField;
 
   setTimeout(() => {
     alert.remove();
@@ -31,67 +31,66 @@ const showDataAlert = () => {
 
 };
 
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeNotification();
+  }
+};
+
+const onDocumentClick = (evt) => {
+  if (!evt.target.closest('div.success__inner, div.error__inner')) {
+    closeNotification();
+  }
+};
+
+function closeNotification () {
+  const alertMessage = document.querySelector('.success, .error');
+  alertMessage.remove();
+  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('click', () => closeNotification());
+  document.removeEventListener('keydown', () => closeNotification());
+}
+
 const showSuccess = () => {
 
-  addField = showSomeAlert('success');
+  addedField = showSomeNotification('success');
 
-  document.body.appendChild(addField);
-
-  const alert = addField;
-
-  const onDocumentKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      close();
-    }
-  };
-
-  function close () {
-    document.removeEventListener('keydown', onDocumentKeydown);
-    alert.classList.add('hidden');
-  }
+  document.body.appendChild(addedField);
 
   document.addEventListener('keydown', onDocumentKeydown);
-
-  document.querySelector('.success__button').addEventListener('click', close);
-
-  // console.log(alert);
-  // console.log();
-
-  // return;
+  document.querySelector('.success__button').addEventListener('click', () => closeNotification());
+  document.addEventListener('click', onDocumentClick);
 };
 
 const showAlert = () => {
 
-  addField = showSomeAlert('error');
+  addedField = showSomeNotification('error');
 
-  document.body.appendChild(addField);
-
-  const alert = addField;
-
-  const onDocumentKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      close();
-    }
-  };
-
-  function close () {
-    document.removeEventListener('keydown', onDocumentKeydown);
-    alert.classList.add('hidden');
-  }
+  document.body.appendChild(addedField);
 
   document.addEventListener('keydown', onDocumentKeydown);
-
-  document.querySelector('.error__button').addEventListener('click', close);
-
-  // console.log(alert);
-  // console.log(a);
-
-  // return a;
+  document.querySelector('.error__button').addEventListener('click', () => closeNotification());
+  document.addEventListener('click', onDocumentClick);
 };
 
-// console.log(showAlert);
-// console.log(showAlert());
+const showFileError = (errMessage) => {
 
-export {showDataAlert, showSuccess, showAlert};
+  addedField = showSomeNotification('data-error');
+
+  document.body.appendChild(addedField);
+
+  if (errMessage) {
+    addedField.textContent = errMessage;
+  }
+  const alert = addedField;
+
+  setTimeout(() => {
+    alert.remove();
+  }, ALERT_SHOW_TIME);
+
+};
+
+export {showDataAlert, showSuccess, showAlert, showFileError};
+

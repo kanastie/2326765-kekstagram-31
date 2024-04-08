@@ -1,6 +1,7 @@
 import {isEscapeKey} from './util.js';
 import {resetScale, changeScale} from './scale-control.js';
 import {hideSlider, clearFilter} from './effects-control.js';
+import {resetValidator} from './validate-form.js';
 
 const body = document.querySelector('body');
 
@@ -11,8 +12,10 @@ const uploadCloseButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagText = uploadForm.querySelector('.text__hashtags');
 const descriptionText = uploadForm.querySelector('.text__description');
 
+const isAlertShown = () => Boolean(document.querySelector('.error'));
+
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !(document.activeElement === hashtagText || document.activeElement === descriptionText) && !isAlertShown()) {
     evt.preventDefault();
     closeForm();
   }
@@ -36,25 +39,23 @@ function closeForm () {
   descriptionText.value = '';
   resetScale();
   clearFilter();
+  resetValidator();
 }
 
 changeScale();
 
-uploadInput.addEventListener('change', openForm);
+uploadInput.addEventListener('change', () => openForm());
 
-uploadCloseButton.addEventListener('click', closeForm);
+uploadCloseButton.addEventListener('click', () => closeForm());
 
-const onField = (evt) => {
+const onFocusFieldKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    if (document.activeElement === hashtagText || document.activeElement === descriptionText) {
-      evt.stopPropagation();
-    }
+    evt.stopPropagation();
+    evt.target.blur();
   }
 };
 
-descriptionText.addEventListener('keydown', onField);
-
-hashtagText.addEventListener('keydown', onField);
+descriptionText.addEventListener('keydown', onFocusFieldKeydown);
+hashtagText.addEventListener('keydown', onFocusFieldKeydown);
 
 export {onDocumentKeydown, closeForm};
