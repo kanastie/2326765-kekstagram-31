@@ -39,6 +39,8 @@ const switchFilter = () => {
       targetButton.classList.add(ACTIVE_BUTTON_CLASS);
     });
   }
+  // если перенести сюда функцию, ошибка остаётся
+  // changeThumbnailsList (data);
 };
 
 const debouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
@@ -48,6 +50,11 @@ const clearThumbnails = () => {
   pictures.forEach((el) => el.remove());
 };
 
+const add = (arr) => {
+  clearThumbnails();
+  debouncedPictures(arr);
+};
+
 function changeThumbnailsList (data) {
 
   copyArray = data.slice();
@@ -55,15 +62,18 @@ function changeThumbnailsList (data) {
   filterElement.addEventListener('click', (evt) => {
     switch (evt.target.id) {
       case Filters.DEFAULT:
-        clearThumbnails();
-        return debouncedPictures(data);
+        return add(data);
+        // clearThumbnails();
+        // return debouncedPictures(data);
       case Filters.RANDOM:
-        clearThumbnails();
-        debouncedPictures(copyArray.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
+        add(copyArray.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
+        // clearThumbnails();
+        // debouncedPictures(copyArray.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
         break;
       case Filters.DISCUSSED:
-        clearThumbnails();
-        debouncedPictures(copyArray.sort(sortByComments));
+        add(copyArray.sort(sortByComments));
+        // clearThumbnails();
+        // debouncedPictures(copyArray.sort(sortByComments));
         break;
     }
   });
@@ -71,7 +81,7 @@ function changeThumbnailsList (data) {
 
 const changeFilter = (data) => {
   filterElement.classList.remove('img-filters--inactive');
-  switchFilter();
+  switchFilter(data);
   changeThumbnailsList(data);
 };
 
