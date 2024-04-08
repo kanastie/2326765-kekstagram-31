@@ -39,7 +39,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 const onDocumentClick = (evt) => {
-  if (!evt.target.classList.contains('succes__inner, error__inner')) {
+  if (!evt.target.closest('div.success__inner, div.error__inner')) {
     closeNotification();
   }
 };

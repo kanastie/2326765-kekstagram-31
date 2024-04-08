@@ -27,7 +27,7 @@ const changeScale = () => {
       scaleValue += STEP;
       scaleControlValue.value = `${scaleValue}%`;
 
-      imgPreview.style.transform = `scale(${scaleValue / 100})`;
+      imgPreview.style.transform = `scale(${scaleValue / 100}%)`;
     }
   });
 };
@@ -35,7 +35,7 @@ const changeScale = () => {
 const resetScale = () => {
   scaleControlValue.value = MAX_SCALE;
   scaleValue = MAX_SCALE;
-  imgPreview.style.transform = `scale(${scaleValue / 100})`;
+  imgPreview.style.transform = `scale(${scaleValue / 100}%)`;
 };
 
 export {changeScale};
