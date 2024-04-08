@@ -67,11 +67,6 @@ const DEFAULT = {
 
 let currentEffect = EFFECTS.origin;
 
-const clearFilter = () => {
-  imgPreview.style.filter = 'none';
-  currentEffect = EFFECTS.origin;
-};
-
 noUiSlider.create(sliderElement, DEFAULT);
 
 const addCurrentFilter = (el) => {
@@ -147,6 +142,12 @@ const onEffectChange = (evt) => {
 };
 
 effectsList.addEventListener('change', onEffectChange);
+
+const clearFilter = () => {
+  imgPreview.style.filter = 'none';
+  currentEffect = EFFECTS.origin;
+  effectValueElement.value = 'none';
+};
 
 export {hideSlider};
 export {clearFilter};
