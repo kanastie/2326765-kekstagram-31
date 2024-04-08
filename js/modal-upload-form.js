@@ -44,9 +44,9 @@ function closeForm () {
 
 changeScale();
 
-uploadInput.addEventListener('change', openForm);
+uploadInput.addEventListener('change', () => openForm());
 
-uploadCloseButton.addEventListener('click', closeForm);
+uploadCloseButton.addEventListener('click', () => closeForm());
 
 const onFocusFieldKeydown = (evt) => {
   if (isEscapeKey(evt)) {

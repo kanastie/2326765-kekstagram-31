@@ -27,7 +27,7 @@ function closeModal () {
   commentsContainer.innerHTML = '';
 }
 
-modalCloseButton.addEventListener('click', closeModal);
+modalCloseButton.addEventListener('click', () => closeModal());
 
 export {openModal};
 export {closeModal};

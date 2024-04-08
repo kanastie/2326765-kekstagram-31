@@ -49,8 +49,8 @@ function closeNotification () {
   alertMessage.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onDocumentClick);
-  document.removeEventListener('click', closeNotification);
-  document.removeEventListener('keydown', closeNotification);
+  document.removeEventListener('click', () => closeNotification());
+  document.removeEventListener('keydown', () => closeNotification());
 }
 
 const showSuccess = () => {
@@ -60,7 +60,7 @@ const showSuccess = () => {
   document.body.appendChild(addedField);
 
   document.addEventListener('keydown', onDocumentKeydown);
-  document.querySelector('.success__button').addEventListener('click', closeNotification);
+  document.querySelector('.success__button').addEventListener('click', () => closeNotification());
   document.addEventListener('click', onDocumentClick);
 };
 
@@ -71,7 +71,7 @@ const showAlert = () => {
   document.body.appendChild(addedField);
 
   document.addEventListener('keydown', onDocumentKeydown);
-  document.querySelector('.error__button').addEventListener('click', closeNotification);
+  document.querySelector('.error__button').addEventListener('click', () => closeNotification());
   document.addEventListener('click', onDocumentClick);
 };
 
