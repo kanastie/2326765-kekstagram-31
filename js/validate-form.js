@@ -37,7 +37,7 @@ const checkHashtagPattern = (value) => {
   if (value === '') {
     return true;
   }
-  return value.trim().split(' ').every((el) => HASHTAG_PATTERN.test(el));
+  return value.trim().split(/\s+/).every((el) => HASHTAG_PATTERN.test(el));
 };
 
 pristine.addValidator(hashtagText, checkHashtagPattern, 'Хэштег должен начинаться с # и состоять только из букв или цифр');
@@ -48,10 +48,10 @@ const checkDuplicateHashtag = (value) => {
     return true;
   }
 
-  const array = value.toLowerCase().trim().split(' ');
+  const array = value.toLowerCase().trim().split(/\s+/);
   const a = new Set(array);
 
-  if (a.size === value.trim().split(' ').length) {
+  if (a.size === value.trim().split(/\s+/).length) {
     return true;
   }
 };
@@ -59,10 +59,12 @@ const checkDuplicateHashtag = (value) => {
 pristine.addValidator(hashtagText, checkDuplicateHashtag, 'Хэштеги не должны повторяться');
 
 
-const checkHashtagLength = (value) => value.toLowerCase().trim().split(' ').length <= HASHTAGS_LENGTH;
+const checkHashtagLength = (value) => value.toLowerCase().trim().split(/\s+/).length <= HASHTAGS_LENGTH;
 
 pristine.addValidator(hashtagText, checkHashtagLength, `Не больше ${HASHTAGS_LENGTH} хэштегов`);
 
+
+const resetValidator = () => pristine.reset();
 
 const blockSumbitButton = () => {
   submitButton.disabled = true;
@@ -103,3 +105,5 @@ const setUserFormSubmit = (onSuccess) => {
 };
 
 setUserFormSubmit(closeForm);
+
+export {resetValidator};

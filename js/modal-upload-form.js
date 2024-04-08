@@ -1,6 +1,7 @@
 import {isEscapeKey} from './util.js';
 import {resetScale, changeScale} from './scale-control.js';
 import {hideSlider, clearFilter} from './effects-control.js';
+import {resetValidator} from './validate-form.js';
 
 const body = document.querySelector('body');
 
@@ -38,6 +39,7 @@ function closeForm () {
   descriptionText.value = '';
   resetScale();
   clearFilter();
+  resetValidator();
 }
 
 changeScale();
