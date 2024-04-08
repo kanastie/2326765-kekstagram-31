@@ -39,49 +39,44 @@ const switchFilter = () => {
       targetButton.classList.add(ACTIVE_BUTTON_CLASS);
     });
   }
-  // если перенести сюда функцию, ошибка остаётся
-  // changeThumbnailsList (data);
 };
-
-const debouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
 
 const clearThumbnails = () => {
   const pictures = document.querySelectorAll('.picture');
   pictures.forEach((el) => el.remove());
 };
 
-const add = (arr) => {
+const renderDebouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
+
+const addDebouncedPoictures = (data) => {
   clearThumbnails();
-  debouncedPictures(arr);
+  renderDebouncedPictures(data);
 };
 
-function changeThumbnailsList (data) {
+function onThumbnailsListChanging (evt, data) {
+  switch (evt.target.id) {
+    case Filters.DEFAULT:
+      return addDebouncedPoictures(data);
+    case Filters.RANDOM:
+      addDebouncedPoictures(data.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
+      break;
+    case Filters.DISCUSSED:
+      addDebouncedPoictures(data.sort(sortByComments));
+      break;
+  }
+}
 
+function changeThumbnailsList (data) {
   copyArray = data.slice();
 
   filterElement.addEventListener('click', (evt) => {
-    switch (evt.target.id) {
-      case Filters.DEFAULT:
-        return add(data);
-        // clearThumbnails();
-        // return debouncedPictures(data);
-      case Filters.RANDOM:
-        add(copyArray.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
-        // clearThumbnails();
-        // debouncedPictures(copyArray.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
-        break;
-      case Filters.DISCUSSED:
-        add(copyArray.sort(sortByComments));
-        // clearThumbnails();
-        // debouncedPictures(copyArray.sort(sortByComments));
-        break;
-    }
+    onThumbnailsListChanging(evt, copyArray);
   });
 }
 
 const changeFilter = (data) => {
   filterElement.classList.remove('img-filters--inactive');
-  switchFilter(data);
+  switchFilter();
   changeThumbnailsList(data);
 };
 
