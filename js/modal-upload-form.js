@@ -33,13 +33,11 @@ function closeForm () {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 
-  uploadFormEdit.classList.add('hidden');
-  uploadInput.value = '';
-  hashtagText.value = '';
-  descriptionText.value = '';
+  uploadForm.reset();
+  resetValidator();
   resetScale();
   clearFilter();
-  resetValidator();
+  uploadFormEdit.classList.add('hidden');
 }
 
 changeScale();
