@@ -12,7 +12,7 @@ const commentsLoaderButton = modalBigPicture.querySelector('.comments-loader');
 
 commentsContainer.innerHTML = '';
 
-const addCommentsList = () => {
+const onCommentsListLoad = () => {
 
   const commentsToRender = comments.slice(currentCount, currentCount + COMMENTS_COUNT);
   const renderedCommentsLength = commentsToRender.length + currentCount;
@@ -43,14 +43,14 @@ const removeComments = () => {
   currentCount = 0;
   commentsContainer.innerHTML = '';
   commentsLoaderButton.classList.remove('hidden');
-  commentsLoaderButton.removeEventListener('click', addCommentsList);
+  commentsLoaderButton.removeEventListener('click', onCommentsListLoad);
 };
 
 const renderComments = (currentPhotoComments) => {
   comments = currentPhotoComments;
-  addCommentsList();
+  onCommentsListLoad();
 
-  commentsLoaderButton.addEventListener('click', addCommentsList);
+  commentsLoaderButton.addEventListener('click', onCommentsListLoad);
 };
 
 export {removeComments, renderComments};
