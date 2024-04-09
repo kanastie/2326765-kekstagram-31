@@ -4,7 +4,7 @@ const ALERT_SHOW_TIME = 5000;
 
 let addedField = null;
 
-const showSomeNotification = (type) => {
+const showNotification = (type) => {
 
   const alertContainer = document.querySelector(`#${type}`).content;
   const content = alertContainer.querySelector(`.${type}`);
@@ -19,7 +19,7 @@ const showSomeNotification = (type) => {
 
 const showDataAlert = () => {
 
-  addedField = showSomeNotification('data-error');
+  addedField = showNotification('data-error');
 
   document.body.appendChild(addedField);
 
@@ -55,7 +55,7 @@ function closeNotification () {
 
 const showSuccess = () => {
 
-  addedField = showSomeNotification('success');
+  addedField = showNotification('success');
 
   document.body.appendChild(addedField);
 
@@ -66,7 +66,7 @@ const showSuccess = () => {
 
 const showAlert = () => {
 
-  addedField = showSomeNotification('error');
+  addedField = showNotification('error');
 
   document.body.appendChild(addedField);
 
@@ -77,7 +77,7 @@ const showAlert = () => {
 
 const showFileError = (errMessage) => {
 
-  addedField = showSomeNotification('data-error');
+  addedField = showNotification('data-error');
 
   document.body.appendChild(addedField);
 

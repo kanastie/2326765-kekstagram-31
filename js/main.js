@@ -1,4 +1,3 @@
-import './functions.js';
 import {createUsersPhotosThumbnails} from './users-photos.js';
 import {renderBigPhoto} from './render-big-photo.js';
 import './modal-upload-form.js';

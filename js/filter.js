@@ -48,7 +48,7 @@ const clearThumbnails = () => {
 
 const renderDebouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
 
-const addDebouncedPoictures = (data) => {
+const showPicturesDebounced = (data) => {
   clearThumbnails();
   renderDebouncedPictures(data);
 };
@@ -56,12 +56,12 @@ const addDebouncedPoictures = (data) => {
 function onThumbnailsListChanging (evt, data) {
   switch (evt.target.id) {
     case Filters.DEFAULT:
-      return addDebouncedPoictures(data);
+      return showPicturesDebounced(data);
     case Filters.RANDOM:
-      addDebouncedPoictures(data.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
+      showPicturesDebounced(data.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
       break;
     case Filters.DISCUSSED:
-      addDebouncedPoictures(data.sort(sortByComments));
+      showPicturesDebounced(data.sort(sortByComments));
       break;
   }
 }

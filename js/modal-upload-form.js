@@ -33,13 +33,11 @@ function closeForm () {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 
-  uploadFormEdit.classList.add('hidden');
-  uploadInput.value = '';
-  hashtagText.value = '';
-  descriptionText.value = '';
+  uploadForm.reset();
+  resetValidator();
   resetScale();
   clearFilter();
-  resetValidator();
+  uploadFormEdit.classList.add('hidden');
 }
 
 changeScale();
@@ -48,14 +46,14 @@ uploadInput.addEventListener('change', () => openForm());
 
 uploadCloseButton.addEventListener('click', () => closeForm());
 
-const onFocusFieldKeydown = (evt) => {
+const onFieldFocusKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
     evt.target.blur();
   }
 };
 
-descriptionText.addEventListener('keydown', onFocusFieldKeydown);
-hashtagText.addEventListener('keydown', onFocusFieldKeydown);
+descriptionText.addEventListener('keydown', onFieldFocusKeydown);
+hashtagText.addEventListener('keydown', onFieldFocusKeydown);
 
 export {onDocumentKeydown, closeForm};
