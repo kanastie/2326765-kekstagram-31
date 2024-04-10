@@ -16,7 +16,6 @@ const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 const filterElement = document.querySelector('.img-filters');
 const buttons = filterElement.querySelectorAll('.img-filters__button');
 
-let copyArray = [];
 
 const sortRandomly = () => 0.5 - Math.random();
 
@@ -46,38 +45,33 @@ const clearThumbnails = () => {
   pictures.forEach((el) => el.remove());
 };
 
-const renderDebouncedPictures = debounce(createUsersPhotosThumbnails, RENDER_DELAY);
-
-const showPicturesDebounced = (data) => {
+const createPicturesDebounced = debounce((photos) => {
   clearThumbnails();
-  renderDebouncedPictures(data);
-};
+  createUsersPhotosThumbnails(photos);
+}, RENDER_DELAY);
 
-function onThumbnailsListChanging (evt, data) {
-  switch (evt.target.id) {
-    case Filters.DEFAULT:
-      return showPicturesDebounced(data);
-    case Filters.RANDOM:
-      showPicturesDebounced(data.sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
-      break;
-    case Filters.DISCUSSED:
-      showPicturesDebounced(data.sort(sortByComments));
-      break;
-  }
-}
-
-function changeThumbnailsList (data) {
-  copyArray = data.slice();
+function changeThumbnails (data) {
+  const copyArray = data.slice();
 
   filterElement.addEventListener('click', (evt) => {
-    onThumbnailsListChanging(evt, copyArray);
+    switch (evt.target.id) {
+      case Filters.DEFAULT:
+        createPicturesDebounced(data);
+        break;
+      case Filters.RANDOM:
+        createPicturesDebounced([...copyArray].sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
+        break;
+      case Filters.DISCUSSED:
+        createPicturesDebounced([...copyArray].sort(sortByComments));
+        break;
+    }
   });
 }
 
 const changeFilter = (data) => {
   filterElement.classList.remove('img-filters--inactive');
   switchFilter();
-  changeThumbnailsList(data);
+  changeThumbnails(data);
 };
 
 export {changeFilter};
