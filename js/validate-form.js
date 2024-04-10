@@ -13,7 +13,7 @@ const descriptionText = uploadForm.querySelector('.text__description');
 
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 
-const submitButtonText = {
+const SubmitButtonText = {
   IDLE: 'Сохранить',
   SENDING: 'Сохраняю...',
 };
@@ -68,12 +68,12 @@ const resetValidator = () => pristine.reset();
 
 const blockSumbitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = submitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSumbitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = submitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonText.IDLE;
 };
 
 
