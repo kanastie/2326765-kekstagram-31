@@ -1,21 +1,24 @@
 import {sendData} from './api.js';
-import {closeForm} from './modal-upload-form.js';
 import {showSuccess, showAlert} from './alert-messages.js';
+import {onImgUploadLoad} from './user-choosen-photo-preview.js';
+import {onEffectChange} from './effects-control.js';
 
 const DESCRIPTION_LENGTH = 140;
 const HASHTAGS_LENGTH = 5;
 
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
-const uploadForm = document.querySelector('.img-upload__form');
+const imgUpload = document.querySelector('.img-upload');
+const uploadForm = imgUpload.querySelector('.img-upload__form');
+const fileChooser = imgUpload.querySelector('.img-upload__start input[type=file]');
 const hashtagText = uploadForm.querySelector('.text__hashtags');
 const descriptionText = uploadForm.querySelector('.text__description');
-
 const submitButton = uploadForm.querySelector('.img-upload__submit');
+const effectsList = imgUpload.querySelector('.effects__list');
 
-const SubmitButtonText = {
-  IDLE: 'Сохранить',
-  SENDING: 'Сохраняю...',
+const SUBMIT_BUTTON_TEXT = {
+  idle: 'Сохранить',
+  sending: 'Сохраняю...',
 };
 
 const pristine = new Pristine(uploadForm, {
@@ -68,14 +71,15 @@ const resetValidator = () => pristine.reset();
 
 const blockSumbitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButton.textContent = SUBMIT_BUTTON_TEXT.sending;
 };
 
 const unblockSumbitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButton.textContent = SUBMIT_BUTTON_TEXT.idle;
 };
 
+fileChooser.addEventListener('change', onImgUploadLoad);
 
 const setUserFormSubmit = (onSuccess) => {
   uploadForm.addEventListener('submit', (evt) => {
@@ -104,6 +108,6 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-setUserFormSubmit(closeForm);
+effectsList.addEventListener('change', onEffectChange);
 
-export {resetValidator};
+export {resetValidator, setUserFormSubmit};

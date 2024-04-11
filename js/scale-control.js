@@ -38,5 +38,4 @@ const resetScale = () => {
   imgPreview.style.transform = `scale(${scaleValue / 100})`;
 };
 
-export {changeScale};
-export {resetScale};
+export {changeScale, resetScale};

@@ -1,12 +1,12 @@
 const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
-const Route = {
-  GET_DATA: '/data',
-  SEND_DATA: '/',
+const ROUTE = {
+  getData: '/data',
+  sendData: '/',
 };
 
 const getData = (onSuccess, onFail) => {
-  fetch(`${BASE_URL}${Route.GET_DATA}`)
+  fetch(`${BASE_URL}${ROUTE.getData}`)
     .then((response) => {
       if (!response.ok) {
         onFail();
@@ -20,7 +20,7 @@ const getData = (onSuccess, onFail) => {
 };
 
 const sendData = (body, onFail, onSuccess, onFinally) => {
-  fetch(`${BASE_URL}${Route.SEND_DATA}`,
+  fetch(`${BASE_URL}${ROUTE.sendData}`,
     {
       method: 'POST',
       body,
