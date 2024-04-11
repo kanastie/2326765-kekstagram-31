@@ -8,5 +8,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {isEscapeKey};
-export {debounce};
+export {isEscapeKey, debounce};

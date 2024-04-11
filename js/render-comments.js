@@ -1,4 +1,5 @@
 const COMMENTS_COUNT = 5;
+
 let currentCount = 0;
 let comments = [];
 

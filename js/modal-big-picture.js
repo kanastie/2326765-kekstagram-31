@@ -12,12 +12,12 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function openModal () {
+const openModal = () => {
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 
   modalBigPicture.classList.remove('hidden');
-}
+};
 
 function closeModal () {
   body.classList.remove('modal-open');
@@ -30,4 +30,3 @@ function closeModal () {
 modalCloseButton.addEventListener('click', () => closeModal());
 
 export {openModal};
-export {closeModal};

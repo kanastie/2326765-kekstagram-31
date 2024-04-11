@@ -21,13 +21,13 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function openForm () {
+const openForm = ()=> {
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 
   uploadFormEdit.classList.remove('hidden');
   hideSlider();
-}
+};
 
 function closeForm () {
   body.classList.remove('modal-open');
@@ -56,4 +56,4 @@ const onFieldFocusKeydown = (evt) => {
 descriptionText.addEventListener('keydown', onFieldFocusKeydown);
 hashtagText.addEventListener('keydown', onFieldFocusKeydown);
 
-export {onDocumentKeydown, closeForm};
+export {closeForm};

@@ -7,7 +7,7 @@ const fileChooser = imgUpload.querySelector('.img-upload__start input[type=file]
 const preview = imgUpload.querySelector('.img-upload__preview img');
 const previewInEffects = imgUpload.querySelectorAll('.effects__preview');
 
-fileChooser.addEventListener('change', () => {
+const onImgUploadLoad = () => {
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
 
@@ -23,4 +23,6 @@ fileChooser.addEventListener('change', () => {
   } else {
     showFileError('Неверный тип файла');
   }
-});
+};
+
+export {onImgUploadLoad};

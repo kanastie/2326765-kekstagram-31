@@ -1,47 +1,66 @@
-const uploadWrapper = document.querySelector('.img-upload__wrapper');
-const sliderElement = uploadWrapper.querySelector('.effect-level__slider');
-const effectValueElement = uploadWrapper.querySelector('.effect-level__value');
-const sliderElementContainer = uploadWrapper.querySelector('.img-upload__effect-level');
-const imgPreview = uploadWrapper.querySelector('.img-upload__preview > img');
-
-const effectsList = uploadWrapper.querySelector('.effects__list');
-
 const EFFECTS = {
-  origin: {
-    range: {min: 0, max: 1,},
-    step: 1,
+  none: {
+    range: {
+      min: 0,
+      max: 1,
+    },
     start: 100,
+    step: 1,
   },
 
   chrome: {
-    range: {min: 0, max: 1,},
-    step: 0.1,
+    range: {
+      min: 0,
+      max: 1,
+    },
     start: 1,
+    step: 0.1,
   },
 
   sepia: {
-    range: {min: 0, max: 1,},
-    step: 0.1,
+    range: {
+      min: 0,
+      max: 1,
+    },
     start: 1,
+    step: 0.1,
   },
 
   marvin: {
-    range: {min: 0, max: 100,},
-    step: 1,
+    range: {
+      min: 0,
+      max: 100,
+    },
     start: 100,
+    step: 1,
   },
 
   phobos: {
-    range: {min: 0, max: 3,},
-    step: 0.1,
+    range: {
+      min: 0,
+      max: 3,
+    },
     start: 3,
+    step: 0.1,
   },
 
   heat: {
-    range: {min: 0, max: 3,},
-    step: 0.1,
+    range: {
+      min: 0,
+      max: 3,
+    },
     start: 3,
+    step: 0.1,
   },
+};
+
+const PREVIEWS_STYLE = {
+  none: 'none',
+  chrome: 'grayscale',
+  sepia: 'sepia',
+  marvin: 'invert',
+  phobos: 'blur',
+  heat: 'brightness',
 };
 
 const DEFAULT = {
@@ -65,6 +84,13 @@ const DEFAULT = {
   },
 };
 
+const uploadWrapper = document.querySelector('.img-upload__wrapper');
+const sliderElement = uploadWrapper.querySelector('.effect-level__slider');
+const effectValueElement = uploadWrapper.querySelector('.effect-level__value');
+const sliderElementContainer = uploadWrapper.querySelector('.img-upload__effect-level');
+const imgPreview = uploadWrapper.querySelector('.img-upload__preview > img');
+
+
 let currentEffect = EFFECTS.origin;
 
 noUiSlider.create(sliderElement, DEFAULT);
@@ -74,18 +100,22 @@ const addCurrentFilter = (el) => {
   sliderElement.noUiSlider.on('update', () => {
     const currentSliderValue = sliderElement.noUiSlider.get();
     effectValueElement.value = currentSliderValue;
+    effectValueElement.setAttribute('value', effectValueElement.value);
 
-    const PREVIEWS_STYLE = {
-      none: 'none',
-      chrome: `grayscale(${currentSliderValue})`,
-      sepia: `sepia(${currentSliderValue})`,
-      marvin: `invert(${currentSliderValue}%)`,
-      phobos: `blur(${currentSliderValue}px)`,
-      heat: `brightness(${currentSliderValue})`,
+    const addPreviewStyle = () => {
+      if (el === 'marvin') {
+        return `${PREVIEWS_STYLE[el]}(${currentSliderValue}%)`;
+      } else if (el === 'phobos') {
+        return `${PREVIEWS_STYLE[el]}(${currentSliderValue}px)`;
+      } else if (el === 'none') {
+        return 'none';
+      } else {
+        return `${PREVIEWS_STYLE[el]}(${currentSliderValue})`;
+      }
     };
 
     const addFilterToPreview = () => {
-      imgPreview.style.filter = PREVIEWS_STYLE[el];
+      imgPreview.style.filter = addPreviewStyle(PREVIEWS_STYLE[el]);
     };
     addFilterToPreview();
 
@@ -141,13 +171,10 @@ const onEffectChange = (evt) => {
   }
 };
 
-effectsList.addEventListener('change', onEffectChange);
-
 const clearFilter = () => {
   imgPreview.style.filter = 'none';
   currentEffect = EFFECTS.origin;
   effectValueElement.value = 'none';
 };
 
-export {hideSlider};
-export {clearFilter};
+export {hideSlider, clearFilter, onEffectChange};

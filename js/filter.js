@@ -1,10 +1,10 @@
 import {createUsersPhotosThumbnails} from './users-photos.js';
 import {debounce} from './util.js';
 
-const Filters = {
-  DEFAULT: 'filter-default',
-  RANDOM: 'filter-random',
-  DISCUSSED: 'filter-discussed',
+const FILTERS = {
+  default: 'filter-default',
+  random: 'filter-random',
+  discussed: 'filter-discussed',
 };
 
 const RENDER_DELAY = 500;
@@ -50,23 +50,23 @@ const createPicturesDebounced = debounce((photos) => {
   createUsersPhotosThumbnails(photos);
 }, RENDER_DELAY);
 
-function changeThumbnails (data) {
+const changeThumbnails = (data) =>{
   const copyArray = data.slice();
 
   filterElement.addEventListener('click', (evt) => {
     switch (evt.target.id) {
-      case Filters.DEFAULT:
+      case FILTERS.default:
         createPicturesDebounced(data);
         break;
-      case Filters.RANDOM:
+      case FILTERS.random:
         createPicturesDebounced([...copyArray].sort(sortRandomly).slice(0, RANDOM_PICTURES_AMOUNT));
         break;
-      case Filters.DISCUSSED:
+      case FILTERS.discussed:
         createPicturesDebounced([...copyArray].sort(sortByComments));
         break;
     }
   });
-}
+};
 
 const changeFilter = (data) => {
   filterElement.classList.remove('img-filters--inactive');
