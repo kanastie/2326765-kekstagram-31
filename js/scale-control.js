@@ -16,6 +16,7 @@ const changeScale = () => {
     if (scaleValue > MIN_SCALE) {
       scaleValue -= STEP;
       scaleControlValue.value = `${scaleValue}%`;
+      scaleControlValue.setAttribute('value', scaleControlValue.value);
 
       imgPreview.style.transform = `scale(${scaleValue / 100})`;
     }
@@ -26,6 +27,7 @@ const changeScale = () => {
     if (scaleValue < MAX_SCALE) {
       scaleValue += STEP;
       scaleControlValue.value = `${scaleValue}%`;
+      scaleControlValue.setAttribute('value', scaleControlValue.value);
 
       imgPreview.style.transform = `scale(${scaleValue / 100})`;
     }

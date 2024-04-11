@@ -100,6 +100,7 @@ const addCurrentFilter = (el) => {
   sliderElement.noUiSlider.on('update', () => {
     const currentSliderValue = sliderElement.noUiSlider.get();
     effectValueElement.value = currentSliderValue;
+    effectValueElement.setAttribute('value', effectValueElement.value);
 
     const addPreviewStyle = () => {
       if (el === 'marvin') {
